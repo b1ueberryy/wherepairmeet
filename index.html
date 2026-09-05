@@ -15,46 +15,22 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;800&display=swap">
 <style>
   :root {
-    --ground:   #fff4f7;
-    --ground-2: #ffe7ef;
-    --card:     #ffffff;
-    --ink:      #4b3242;
-    --ink-soft: #9b8394;
-    --line:     #f7d9e4;
-    --berry:    #ff85a9;
-    --berry-deep:#dd5c85;
-    --lav:      #b39ae4;
-    --mint:     #4fc7a8;
-    --mint-bg:  #e4f8f1;
-    --peach:    #ffcf8f;
-    --shadow:   rgba(214,116,155,.22);
-    --shadow-lg:rgba(214,116,155,.28);
-    --petal:    rgba(255,133,169,.30);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ground:   #211520;
-      --ground-2: #2b1c2a;
-      --card:     #2f2030;
-      --ink:      #f9e8f0;
-      --ink-soft: #bfa3b6;
-      --line:     #452e42;
-      --berry:    #ff9dbb;
-      --berry-deep:#ffb9d0;
-      --lav:      #c9b3f5;
-      --mint:     #7fe0c4;
-      --mint-bg:  #1f3a35;
-      --peach:    #ffdaa8;
-      --shadow:   rgba(0,0,0,.45);
-      --shadow-lg:rgba(0,0,0,.55);
-      --petal:    rgba(255,157,187,.22);
-    }
-  }
-  :root[data-theme="dark"] {
-    --ground:#211520; --ground-2:#2b1c2a; --card:#2f2030; --ink:#f9e8f0;
-    --ink-soft:#bfa3b6; --line:#452e42; --berry:#ff9dbb; --berry-deep:#ffb9d0;
-    --lav:#c9b3f5; --mint:#7fe0c4; --mint-bg:#1f3a35; --peach:#ffdaa8;
-    --shadow:rgba(0,0,0,.45); --shadow-lg:rgba(0,0,0,.55); --petal:rgba(255,157,187,.22);
+    /* чёрно-розовая гамма: один committed вид, без светлой темы */
+    --ground:   #0c090e;
+    --ground-2: #17101c;
+    --card:     #171019;
+    --ink:      #ffe9f2;
+    --ink-soft: #a88ba0;
+    --line:     #31213b;
+    --berry:    #ff2d74;
+    --berry-deep:#ff74a8;
+    --lav:      #ff9ecb;
+    --mint:     #ff74a8;
+    --mint-bg:  #2a0f1e;
+    --peach:    #ff2d74;
+    --shadow:   rgba(0,0,0,.55);
+    --shadow-lg:rgba(255,45,116,.30);
+    --petal:    rgba(255,45,116,.34);
   }
 
   * { box-sizing: border-box; }
@@ -62,7 +38,7 @@
 
   body {
     background:
-      radial-gradient(120% 60% at 50% -10%, var(--ground-2) 0%, transparent 70%),
+      radial-gradient(90% 45% at 50% -8%, rgba(255,45,116,.16) 0%, transparent 65%),
       var(--ground);
     background-attachment: fixed;
     color: var(--ink);
@@ -133,7 +109,7 @@
     background: var(--berry); color: #fff; font-weight: 800; font-size: .82rem;
     display: grid; place-items: center; box-shadow: 0 3px 8px var(--shadow);
   }
-  .card.filled .num { background: var(--mint); }
+  .card.filled .num { background: var(--ink); color: var(--ground); }
   .card.filled .num::before { content: "✓"; }
   .card.filled .num span { display: none; }
 
@@ -160,7 +136,7 @@
   .day[aria-pressed="true"] .dmon { color: rgba(255,255,255,.85); }
   .day .tag {
     position: absolute; top: -.5rem; left: 50%; transform: translateX(-50%);
-    background: var(--lav); color: #fff; font-size: .55rem; font-weight: 800;
+    background: var(--lav); color: var(--ground); font-size: .55rem; font-weight: 800;
     padding: .1rem .35rem; border-radius: 999px; letter-spacing: .04em; white-space: nowrap;
   }
 
@@ -253,12 +229,12 @@
   /* ---------- modal (отмена подписки) ---------- */
   .modal {
     position: fixed; inset: 0; z-index: 70; display: grid; place-items: center;
-    padding: 1rem; background: rgba(75,50,66,.45); backdrop-filter: blur(4px);
+    padding: 1rem; background: rgba(0,0,0,.74); backdrop-filter: blur(4px);
   }
   .sheet {
     background: var(--card); border-radius: 24px; padding: 1.5rem 1.3rem 1.3rem;
     max-width: 22rem; width: 100%; text-align: center;
-    box-shadow: 0 20px 50px rgba(75,50,66,.35); border: 1px solid var(--line);
+    box-shadow: 0 20px 50px rgba(0,0,0,.7); border: 1px solid var(--line);
     animation: pop .28s cubic-bezier(.34,1.56,.64,1);
   }
   @keyframes pop { from { transform: scale(.9) translateY(14px); opacity: 0; } }
@@ -375,7 +351,7 @@
   </section>
 
   <div class="actions">
-    <button class="yes" id="btnYes" type="button" disabled>я приду ♡</button>
+    <button class="yes" id="btnYes" type="button" disabled>пойдём!!!</button>
     <div class="noslot"><button class="no" id="btnNo" type="button">не могу 🥺</button></div>
   </div>
   <p class="fineprint" id="fineprint">выбери день и время</p>
