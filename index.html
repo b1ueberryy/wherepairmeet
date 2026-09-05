@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Свидание с Яной</title>
+<meta name="description" content="Выбери, когда тебе удобно. Отказаться технически можно, но сложно.">
+<meta name="theme-color" content="#ff85a9">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Свидание с Яной ♡">
+<meta property="og:description" content="Выбери день, время и чем займёмся. Кнопка «не могу» работает, но плохо.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>💌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;800&display=swap">
+<style>
+  :root {
+    --ground:   #fff4f7;
+    --ground-2: #ffe7ef;
+    --card:     #ffffff;
+    --ink:      #4b3242;
+    --ink-soft: #9b8394;
+    --line:     #f7d9e4;
+    --berry:    #ff85a9;
+    --berry-deep:#dd5c85;
+    --lav:      #b39ae4;
+    --mint:     #4fc7a8;
+    --mint-bg:  #e4f8f1;
+    --peach:    #ffcf8f;
+    --shadow:   rgba(214,116,155,.22);
+    --shadow-lg:rgba(214,116,155,.28);
+    --petal:    rgba(255,133,169,.30);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #211520;
+      --ground-2: #2b1c2a;
+      --card:     #2f2030;
+      --ink:      #f9e8f0;
+      --ink-soft: #bfa3b6;
+      --line:     #452e42;
+      --berry:    #ff9dbb;
+      --berry-deep:#ffb9d0;
+      --lav:      #c9b3f5;
+      --mint:     #7fe0c4;
+      --mint-bg:  #1f3a35;
+      --peach:    #ffdaa8;
+      --shadow:   rgba(0,0,0,.45);
+      --shadow-lg:rgba(0,0,0,.55);
+      --petal:    rgba(255,157,187,.22);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#211520; --ground-2:#2b1c2a; --card:#2f2030; --ink:#f9e8f0;
+    --ink-soft:#bfa3b6; --line:#452e42; --berry:#ff9dbb; --berry-deep:#ffb9d0;
+    --lav:#c9b3f5; --mint:#7fe0c4; --mint-bg:#1f3a35; --peach:#ffdaa8;
+    --shadow:rgba(0,0,0,.45); --shadow-lg:rgba(0,0,0,.55); --petal:rgba(255,157,187,.22);
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+
+  body {
+    background:
+      radial-gradient(120% 60% at 50% -10%, var(--ground-2) 0%, transparent 70%),
+      var(--ground);
+    background-attachment: fixed;
+    color: var(--ink);
+    font: 400 16px/1.6 Nunito, "Segoe UI", system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 0 0 3rem;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ---------- ambient petals ---------- */
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .petals i {
+    position: absolute; top: -6vh; font-size: 18px; color: var(--petal);
+    animation: fall linear infinite; opacity: .85;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-10vh) rotate(0deg); }
+    100% { transform: translateY(112vh) rotate(320deg); }
+  }
+  #fx { position: fixed; inset: 0; pointer-events: none; z-index: 60; }
+
+  /* ---------- layout ---------- */
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 34rem; margin: 0 auto; padding: 2.5rem 1rem 0;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  /* ---------- hero ---------- */
+  .hero { text-align: center; padding: 0 .25rem 1rem; }
+  .eyebrow {
+    font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--berry-deep); font-weight: 800;
+  }
+  .hero h1 {
+    font-family: Comfortaa, Nunito, sans-serif; font-weight: 700;
+    font-size: clamp(2rem, 9vw, 2.7rem); margin: .35rem 0 .1rem;
+    letter-spacing: -.01em; text-wrap: balance;
+  }
+  .hero h1 .amp { color: var(--berry); display: inline-block; animation: beat 1.9s ease-in-out infinite; }
+  @keyframes beat { 0%,100% { transform: scale(1); } 18% { transform: scale(1.22); } 36% { transform: scale(1); } 54% { transform: scale(1.14); } }
+  .tagline {
+    font-family: Caveat, cursive; font-size: 1.32rem; line-height: 1.35;
+    color: var(--ink-soft); margin: .3rem auto 1.1rem; max-width: 22rem;
+  }
+  .stats { display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+    padding: .35rem .8rem; font-size: .78rem; color: var(--ink-soft);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .stat b { color: var(--ink); font-weight: 800; font-variant-numeric: tabular-nums; }
+  .stat .live { color: var(--berry-deep); font-variant-numeric: tabular-nums; }
+
+  /* ---------- cards ---------- */
+  .card {
+    background: var(--card); border-radius: 22px; padding: 1.05rem 1.1rem 1.15rem;
+    box-shadow: 0 6px 22px var(--shadow); border: 1px solid var(--line);
+  }
+  .cardhead { display: flex; align-items: center; gap: .6rem; margin-bottom: .85rem; }
+  .cardhead h2 {
+    font-family: Comfortaa, sans-serif; font-weight: 700; font-size: 1.05rem;
+    margin: 0; letter-spacing: -.01em;
+  }
+  .num {
+    flex: none; width: 1.6rem; height: 1.6rem; border-radius: 50%;
+    background: var(--berry); color: #fff; font-weight: 800; font-size: .82rem;
+    display: grid; place-items: center; box-shadow: 0 3px 8px var(--shadow);
+  }
+  .card.filled .num { background: var(--mint); }
+  .card.filled .num::before { content: "✓"; }
+  .card.filled .num span { display: none; }
+
+  /* ---------- day grid ---------- */
+  .days { display: grid; grid-template-columns: repeat(4, 1fr); gap: .45rem; }
+  @media (min-width: 26rem) { .days { grid-template-columns: repeat(5, 1fr); } }
+  .day {
+    position: relative; appearance: none; cursor: pointer;
+    background: var(--ground); border: 1.5px solid var(--line); border-radius: 14px;
+    padding: .5rem .2rem .45rem; color: var(--ink); font-family: inherit;
+    display: flex; flex-direction: column; align-items: center; gap: .1rem;
+    transition: transform .14s ease, border-color .14s, background .14s;
+  }
+  .day .dow { font-size: .68rem; color: var(--ink-soft); text-transform: lowercase; }
+  .day .dnum { font-size: 1.22rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .day .dmon { font-size: .62rem; color: var(--ink-soft); }
+  .day.weekend .dow { color: var(--lav); font-weight: 800; }
+  .day:hover { transform: translateY(-3px); border-color: var(--berry); }
+  .day[aria-pressed="true"] {
+    background: var(--berry); border-color: var(--berry); color: #fff;
+    transform: translateY(-3px) scale(1.04); box-shadow: 0 6px 14px var(--shadow-lg);
+  }
+  .day[aria-pressed="true"] .dow,
+  .day[aria-pressed="true"] .dmon { color: rgba(255,255,255,.85); }
+  .day .tag {
+    position: absolute; top: -.5rem; left: 50%; transform: translateX(-50%);
+    background: var(--lav); color: #fff; font-size: .55rem; font-weight: 800;
+    padding: .1rem .35rem; border-radius: 999px; letter-spacing: .04em; white-space: nowrap;
+  }
+
+  /* ---------- chips ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .chip {
+    appearance: none; cursor: pointer; font-family: inherit; font-size: .88rem; font-weight: 600;
+    background: var(--ground); border: 1.5px solid var(--line); border-radius: 999px;
+    padding: .42rem .85rem; color: var(--ink);
+    transition: transform .14s ease, background .14s, border-color .14s;
+    font-variant-numeric: tabular-nums;
+  }
+  .chip:hover { transform: translateY(-2px); border-color: var(--berry); }
+  .chip[aria-pressed="true"] {
+    background: var(--berry); border-color: var(--berry); color: #fff;
+    box-shadow: 0 5px 12px var(--shadow-lg);
+  }
+
+  /* ---------- roulette ---------- */
+  .slot {
+    height: 3.4rem; overflow: hidden; border-radius: 14px;
+    background: linear-gradient(180deg, var(--ground-2), var(--ground));
+    border: 1.5px dashed var(--line); display: grid; place-items: center;
+    padding: 0 .7rem; margin-bottom: .6rem;
+  }
+  .slot span {
+    font-family: Comfortaa, sans-serif; font-weight: 700; font-size: 1rem;
+    text-align: center; line-height: 1.25; text-wrap: balance;
+  }
+  .slot.spinning span { animation: flick .09s linear infinite; }
+  @keyframes flick { 0% { opacity: .35; transform: translateY(6px); } 100% { opacity: 1; transform: translateY(0); } }
+  .slot.landed { border-style: solid; border-color: var(--berry); background: var(--card); }
+  .spin {
+    width: 100%; appearance: none; cursor: pointer; font-family: Comfortaa, sans-serif;
+    font-weight: 700; font-size: .92rem; color: var(--ink);
+    background: var(--peach); border: none; border-radius: 999px; padding: .6rem;
+    box-shadow: 0 4px 12px var(--shadow); transition: transform .14s ease;
+  }
+  .spin:hover { transform: translateY(-2px); }
+  .spin:active { transform: translateY(1px); }
+  .hint {
+    font-family: Caveat, cursive; font-size: 1.08rem; color: var(--ink-soft);
+    text-align: center; margin: .7rem 0 .4rem;
+  }
+  .field {
+    width: 100%; font-family: inherit; font-size: .92rem; color: var(--ink);
+    background: var(--ground); border: 1.5px solid var(--line); border-radius: 14px;
+    padding: .6rem .8rem; resize: none;
+  }
+  .field::placeholder { color: var(--ink-soft); opacity: .8; }
+  .field:focus { outline: 2px solid var(--berry); outline-offset: 1px; border-color: transparent; }
+  .note-card label {
+    display: block; font-family: Comfortaa, sans-serif; font-weight: 700;
+    font-size: .92rem; margin-bottom: .55rem;
+  }
+
+  /* ---------- actions ---------- */
+  .actions { display: flex; flex-direction: column; gap: .55rem; margin-top: .5rem; position: relative; }
+  .yes {
+    appearance: none; cursor: pointer; font-family: Comfortaa, sans-serif; font-weight: 700;
+    font-size: 1.12rem; color: #fff; border: none; border-radius: 18px; padding: .95rem;
+    background: linear-gradient(135deg, var(--berry), var(--lav));
+    box-shadow: 0 8px 20px var(--shadow-lg);
+    transition: transform .16s ease, filter .16s;
+  }
+  .yes:hover:not(:disabled) { transform: translateY(-3px); filter: saturate(1.15); }
+  .yes:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+  .no {
+    appearance: none; cursor: pointer; font-family: inherit; font-weight: 600; font-size: .9rem;
+    color: var(--ink-soft); background: transparent; border: 1.5px solid var(--line);
+    border-radius: 999px; padding: .55rem; align-self: center; min-width: 12rem;
+    transition: transform .22s cubic-bezier(.34,1.56,.64,1);
+  }
+  .no:hover { color: var(--ink); }
+  .fineprint {
+    font-family: Caveat, cursive; font-size: 1.05rem; color: var(--ink-soft);
+    text-align: center; margin: .4rem 0 0; line-height: 1.3;
+  }
+  .signature {
+    font-family: Caveat, cursive; font-size: 1.15rem; color: var(--ink-soft);
+    text-align: center; margin: 1.6rem 0 0; opacity: .8;
+  }
+
+  :where(button, textarea, input):focus-visible { outline: 2.5px solid var(--lav); outline-offset: 2px; }
+
+  /* ---------- modal (отмена подписки) ---------- */
+  .modal {
+    position: fixed; inset: 0; z-index: 70; display: grid; place-items: center;
+    padding: 1rem; background: rgba(75,50,66,.45); backdrop-filter: blur(4px);
+  }
+  .sheet {
+    background: var(--card); border-radius: 24px; padding: 1.5rem 1.3rem 1.3rem;
+    max-width: 22rem; width: 100%; text-align: center;
+    box-shadow: 0 20px 50px rgba(75,50,66,.35); border: 1px solid var(--line);
+    animation: pop .28s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes pop { from { transform: scale(.9) translateY(14px); opacity: 0; } }
+  .bar { height: 5px; border-radius: 999px; background: var(--line); overflow: hidden; margin-bottom: .5rem; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--berry), var(--lav)); transition: width .35s ease; }
+  .barlabel { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 800; margin-bottom: 1rem; }
+  .face { font-size: 2.7rem; line-height: 1; display: block; margin-bottom: .5rem; }
+  .sheet h3 {
+    font-family: Comfortaa, sans-serif; font-weight: 700; font-size: 1.22rem;
+    margin: 0 0 .45rem; text-wrap: balance;
+  }
+  .sheet p { color: var(--ink-soft); font-size: .93rem; margin: 0 0 1.15rem; text-wrap: pretty; }
+  .polls { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+  .poll {
+    appearance: none; cursor: pointer; font-family: inherit; font-size: .88rem; font-weight: 600;
+    background: var(--ground); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: .55rem; color: var(--ink); transition: border-color .14s, transform .14s;
+  }
+  .poll:hover { border-color: var(--berry); transform: translateX(3px); }
+  .sheet .yes { font-size: 1rem; padding: .8rem; width: 100%; }
+  .bail {
+    display: block; margin: .75rem auto 0; appearance: none; background: none; border: none;
+    font-family: inherit; color: var(--ink-soft); font-size: .82rem; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; opacity: .75;
+    transition: transform .22s cubic-bezier(.34,1.56,.64,1);
+  }
+  .bail:hover { opacity: 1; }
+  .bail.tiny { font-size: .58rem; opacity: .5; }
+
+  /* ---------- result ---------- */
+  .result { position: relative; z-index: 1; max-width: 34rem; margin: 0 auto; padding: 3rem 1rem 0; }
+  .ticket {
+    background: var(--card); border-radius: 26px; padding: 1.7rem 1.3rem 1.4rem;
+    box-shadow: 0 10px 34px var(--shadow-lg); border: 1px solid var(--line);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .ticket::before {
+    content: ""; position: absolute; inset: 0 0 auto; height: 6px;
+    background: linear-gradient(90deg, var(--berry), var(--lav), var(--peach), var(--berry));
+  }
+  .ticket .eyebrow { margin-top: .3rem; }
+  .ticket h2 {
+    font-family: Comfortaa, sans-serif; font-weight: 700; font-size: 1.9rem;
+    margin: .5rem 0 1.2rem;
+  }
+  .rows { display: flex; flex-direction: column; gap: .1rem; margin-bottom: 1.2rem; }
+  .row {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    padding: .65rem .2rem; border-bottom: 1px dashed var(--line); text-align: left;
+  }
+  .row:last-child { border-bottom: none; }
+  .row .k { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 800; flex: none; }
+  .row .v { font-family: Comfortaa, sans-serif; font-weight: 700; font-size: 1.02rem; text-align: right; }
+  .fromher {
+    background: var(--ground-2); border-radius: 16px; padding: .8rem 1rem; margin-bottom: 1.1rem;
+    font-family: Caveat, cursive; font-size: 1.25rem; line-height: 1.35; color: var(--ink);
+  }
+  .synced {
+    display: inline-flex; align-items: center; gap: .45rem; font-size: .8rem;
+    color: var(--mint); font-weight: 700; background: var(--mint-bg);
+    padding: .35rem .8rem; border-radius: 999px; margin-bottom: 1rem;
+  }
+  .synced .dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--mint); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
+  .ghost {
+    appearance: none; cursor: pointer; font-family: inherit; font-weight: 600; font-size: .86rem;
+    background: var(--ground); border: 1.5px solid var(--line); border-radius: 999px;
+    padding: .5rem 1.1rem; color: var(--ink-soft); margin: .2rem .2rem 0;
+    transition: border-color .14s, color .14s;
+  }
+  .ghost:hover { border-color: var(--berry); color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    .petals { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<main class="wrap" id="picker">
+  <header class="hero">
+    <p class="eyebrow" id="invno">приглашение</p>
+    <h1>Влад <span class="amp">♡</span> Яна</h1>
+    <p class="tagline">Выбери, когда тебе удобно.<br>Отказаться технически можно. Но сложно.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section class="card" id="c-date">
+    <div class="cardhead"><span class="num"><span>1</span></span><h2>Какой день?</h2></div>
+    <div class="days" id="days"></div>
+  </section>
+
+  <section class="card" id="c-time">
+    <div class="cardhead"><span class="num"><span>2</span></span><h2>Во сколько?</h2></div>
+    <div class="chips" id="times"></div>
+  </section>
+
+  <section class="card" id="c-plan">
+    <div class="cardhead"><span class="num"><span>3</span></span><h2>Чем займёмся?</h2></div>
+    <div class="slot" id="slot"><span id="slotText">крути и посмотрим, что выпадет</span></div>
+    <button class="spin" id="spin" type="button">🎰 крутить рулетку</button>
+    <p class="hint">или впиши своё, если рулетка глупая</p>
+    <input class="field" id="planInput" type="text" maxlength="60" placeholder="например: лежать и ничего не делать">
+  </section>
+
+  <section class="card note-card">
+    <label for="note">Записка для Влада (по желанию)</label>
+    <textarea class="field" id="note" rows="2" maxlength="200" placeholder="купи мороженое / я буду опаздывать на 15 минут, как всегда"></textarea>
+  </section>
+
+  <div class="actions">
+    <button class="yes" id="btnYes" type="button" disabled>я приду ♡</button>
+    <button class="no" id="btnNo" type="button">не могу 🥺</button>
+  </div>
+  <p class="fineprint" id="fineprint">выбери день и время — тогда кнопка проснётся</p>
+  <p class="signature">сделано Владом вручную,<br>с ошибками в коде, но не в чувствах</p>
+</main>
+
+<section class="result" id="result" hidden>
+  <div class="ticket">
+    <p class="eyebrow">свидание подтверждено</p>
+    <h2 id="rTitle">Договорились ♡</h2>
+    <div class="rows" id="rRows"></div>
+    <div class="fromher" id="rNote" hidden></div>
+    <div class="synced" id="rSync"><span class="dot"></span><span id="rSyncText">Влад уже это видит</span></div>
+    <div>
+      <button class="ghost" id="rCopy" type="button">скопировать текст</button>
+      <button class="ghost" id="rReset" type="button">поменять решение</button>
+    </div>
+  </div>
+  <p class="signature">это лучшая новость за сегодня</p>
+</section>
+
+<div class="modal" id="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="bar"><i id="mBar" style="width:0%"></i></div>
+    <p class="barlabel" id="mStep">попытка 1 из 10</p>
+    <span class="face" id="mFace">😳</span>
+    <h3 id="mTitle">Стоп. Ты уверена?</h3>
+    <p id="mText">Это стандартная процедура, я обязан переспросить.</p>
+    <div class="polls" id="mPolls" hidden></div>
+    <button class="yes" id="mYes" type="button">Ладно, я приду ♡</button>
+    <button class="bail" id="mNo" type="button">да, не могу</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var START = new Date(2022, 5, 26); // 26 июня 2022
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------------- лепестки ---------------- */
+  if (!reduced) {
+    var petals = $("petals"), glyphs = ["♡", "❀", "✿", "♥"];
+    for (var p = 0; p < 14; p++) {
+      var el = document.createElement("i");
+      el.textContent = glyphs[p % glyphs.length];
+      el.style.left = (Math.random() * 100).toFixed(1) + "%";
+      el.style.fontSize = (12 + Math.random() * 14).toFixed(0) + "px";
+      el.style.animationDuration = (11 + Math.random() * 13).toFixed(1) + "s";
+      el.style.animationDelay = (-Math.random() * 20).toFixed(1) + "s";
+      petals.appendChild(el);
+    }
+  }
+
+  /* ---------------- счётчик «вместе» ---------------- */
+  var daysTogether = Math.floor((Date.now() - START.getTime()) / 86400000);
+  $("invno").textContent = "приглашение №" + daysTogether;
+
+  var statsBox = $("stats");
+  statsBox.innerHTML =
+    '<div class="stat">вместе <b>' + daysTogether + '</b> дней</div>' +
+    '<div class="stat">это <b>' + (daysTogether * 24).toLocaleString("ru-RU") + '</b> часов</div>' +
+    '<div class="stat">и <b class="live" id="secs">—</b> секунд</div>';
+
+  var secsEl = $("secs");
+  function tickSeconds() {
+    var s = Math.floor((Date.now() - START.getTime()) / 1000);
+    secsEl.textContent = s.toLocaleString("ru-RU");
+  }
+  tickSeconds();
+  setInterval(tickSeconds, 1000);
+
+  /* ---------------- выбор дня ---------------- */
+  var DOW = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+  var MON = ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+  var MON_FULL = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+
+  var state = { day: null, time: null, plan: null, note: "" };
+  var daysBox = $("days");
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+
+  for (var i = 0; i < 15; i++) {
+    var d = new Date(today.getTime() + i * 86400000);
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "day" + (d.getDay() === 0 || d.getDay() === 6 ? " weekend" : "");
+    b.setAttribute("aria-pressed", "false");
+    b.dataset.iso = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    b.dataset.label = d.getDate() + " " + MON_FULL[d.getMonth()] + ", " + DOW[d.getDay()];
+    var tag = i === 0 ? "сегодня" : (i === 1 ? "завтра" : "");
+    b.innerHTML =
+      (tag ? '<span class="tag">' + tag + "</span>" : "") +
+      '<span class="dow">' + DOW[d.getDay()] + "</span>" +
+      '<span class="dnum">' + d.getDate() + "</span>" +
+      '<span class="dmon">' + MON[d.getMonth()] + "</span>";
+    daysBox.appendChild(b);
+  }
+
+  daysBox.addEventListener("click", function (e) {
+    var btn = e.target.closest(".day");
+    if (!btn) return;
+    Array.prototype.forEach.call(daysBox.children, function (c) { c.setAttribute("aria-pressed", "false"); });
+    btn.setAttribute("aria-pressed", "true");
+    state.day = btn.dataset.label;
+    $("c-date").classList.add("filled");
+    refresh();
+  });
+
+  /* ---------------- выбор времени ---------------- */
+  var TIMES = ["12:00", "14:00", "16:00", "18:00", "19:00", "20:00", "21:00", "как получится"];
+  var timesBox = $("times");
+  TIMES.forEach(function (t) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = t;
+    b.setAttribute("aria-pressed", "false");
+    timesBox.appendChild(b);
+  });
+  timesBox.addEventListener("click", function (e) {
+    var btn = e.target.closest(".chip");
+    if (!btn) return;
+    Array.prototype.forEach.call(timesBox.children, function (c) { c.setAttribute("aria-pressed", "false"); });
+    btn.setAttribute("aria-pressed", "true");
+    state.time = btn.textContent;
+    $("c-time").classList.add("filled");
+    refresh();
+  });
+
+  /* ---------------- рулетка ---------------- */
+  var IDEAS = [
+    "кино дома под пледом",
+    "гулять, пока не замёрзнем",
+    "готовим пасту и что-то портим",
+    "лежим тюленями, ноль активностей",
+    "шаверма, но подаём как в мишлене",
+    "настолки и лёгкая ссора из-за правил",
+    "кофе и обсудить вообще всех",
+    "ИКЕА, но только ради хот-догов",
+    "пересматриваем то, что уже смотрели",
+    "идём в закат (то есть до магазина)",
+    "ты выбираешь фильм, я делаю вид, что согласен",
+    "печём что-то и съедаем сырым",
+    "караоке в машине без караоке",
+    "ничего не планируем — это и есть план"
+  ];
+  var slot = $("slot"), slotText = $("slotText"), spinning = false;
+
+  $("spin").addEventListener("click", function () {
+    if (spinning) return;
+    spinning = true;
+    slot.classList.add("spinning"); slot.classList.remove("landed");
+    $("planInput").value = "";
+    var ticks = 0, total = 18 + Math.floor(Math.random() * 8);
+    var timer = setInterval(function () {
+      slotText.textContent = IDEAS[Math.floor(Math.random() * IDEAS.length)];
+      if (++ticks >= total) {
+        clearInterval(timer);
+        slot.classList.remove("spinning");
+        slot.classList.add("landed");
+        state.plan = slotText.textContent;
+        $("c-plan").classList.add("filled");
+        spinning = false;
+        refresh();
+      }
+    }, reduced ? 10 : 75);
+  });
+
+  $("planInput").addEventListener("input", function () {
+    var v = this.value.trim();
+    if (v) {
+      state.plan = v;
+      slot.classList.remove("landed");
+      slotText.textContent = "свой вариант, уважаю";
+      $("c-plan").classList.add("filled");
+    } else if (slot.classList.contains("landed")) {
+      state.plan = slotText.textContent;
+    } else {
+      state.plan = null;
+      $("c-plan").classList.remove("filled");
+    }
+  });
+
+  $("note").addEventListener("input", function () { state.note = this.value.trim(); });
+
+  /* ---------------- готовность ---------------- */
+  var btnYes = $("btnYes"), fine = $("fineprint");
+  function refresh() {
+    var ok = !!(state.day && state.time);
+    btnYes.disabled = !ok;
+    fine.textContent = ok
+      ? "жму на кнопку — Влад узнаёт мгновенно"
+      : "выбери день и время — тогда кнопка проснётся";
+  }
+
+  /* ---------------- убегающая кнопка ---------------- */
+  function makeShy(btn, maxDodges, onGiveUp) {
+    var dodges = 0;
+    btn.addEventListener("pointerenter", function (e) {
+      if (e.pointerType !== "mouse" || dodges >= maxDodges) return;
+      dodges++;
+      var dx = (Math.random() < .5 ? -1 : 1) * (60 + Math.random() * 70);
+      var dy = (Math.random() < .5 ? -1 : 1) * (24 + Math.random() * 34);
+      btn.style.transform = "translate(" + dx.toFixed(0) + "px," + dy.toFixed(0) + "px) rotate(" + (dx > 0 ? 6 : -6) + "deg)";
+      if (dodges >= maxDodges) {
+        setTimeout(function () {
+          btn.style.transform = "";
+          if (onGiveUp) onGiveUp();
+        }, 420);
+      }
+    });
+  }
+  makeShy($("btnNo"), 3, function () { $("btnNo").textContent = "ладно, лови 😔"; });
+
+  /* ---------------- модалка удержания ---------------- */
+  var STEPS = [
+    { f: "😳", t: "Стоп. Ты уверена?", x: "Это стандартная процедура, я обязан переспросить.", y: "Ладно, я приду ♡", n: "да, не могу" },
+    { f: "🥺", t: "Совсем-совсем никак?", x: "Просто я уже мысленно выбрал носки под этот вечер.", y: "ну хорошо, приду", n: "совсем никак" },
+    { f: "🍕", t: "А если будет еда?", x: "Не абстрактная еда. Конкретная. Та самая, которую ты любишь.", y: "ладно, ради еды", n: "еда меня не купит" },
+    { f: "⏱️", t: "Предлагаю компромисс", x: "Минус 80% длительности. Встретимся на час. Я даже не буду рассказывать про свои проекты.", y: "на часик можно", n: "и на часик не могу" },
+    { f: "🎁", t: "Специальное предложение", x: "Свидание + я мою посуду неделю. Действует 3 минуты и больше никогда не повторится (повторится).", y: "беру, пока не передумал", n: "отказаться от подарка" },
+    { f: "🛋️", t: "Мы можем вообще ничего не делать", x: "Просто лежать. Клянусь. Ноль активностей, ноль «а пойдём ещё куда-нибудь».", y: "вот это по мне", n: "даже лежать не могу" },
+    { f: "💌", t: "Тут должен был быть хитрый аргумент", x: "Но я его не придумал. Я просто скучаю.", y: "ну ла-а-адно 🥹", n: "я держусь" },
+    {
+      f: "📋", t: "Мини-опрос (обязательный)", x: "Что именно мешает? Отвечай честно, это анонимно.",
+      y: "ладно, приду", n: "всё равно не могу",
+      polls: [
+        ["работа / учёба", "Работа не обнимает. Я проверял."],
+        ["я устала", "Тогда тем более: приезжай лежать, я всё сделаю сам."],
+        ["надо помыть голову", "Помою. У меня, между прочим, есть руки."],
+        ["мне просто лень", "Уважаю честность. Но лень можно взять с собой."]
+      ]
+    },
+    { f: "🚗", t: "Финальное предложение", x: "Я приеду сам. Куда скажешь. Хоть к подъезду, хоть в другой город.", y: "окей, уговорил", n: "всё равно нет" },
+    { f: "🐈", t: "Ладно. Я всё понял.", x: "Кнопка отказа никуда не делась, она просто немного уменьшилась. Это не манипуляция, это дизайн.", y: "ладно, приду ♡", n: "не могу", tiny: true }
+  ];
+
+  var modal = $("modal"), step = 0;
+
+  function renderStep() {
+    var s = STEPS[step];
+    $("mBar").style.width = ((step + 1) / STEPS.length * 100).toFixed(0) + "%";
+    $("mStep").textContent = "попытка " + (step + 1) + " из " + STEPS.length;
+    $("mFace").textContent = s.f;
+    $("mTitle").textContent = s.t;
+    $("mText").textContent = s.x;
+    $("mYes").textContent = s.y;
+
+    var no = $("mNo");
+    no.textContent = s.n;
+    no.className = "bail" + (s.tiny ? " tiny" : "");
+    no.style.transform = "";
+    no.hidden = !!s.polls;
+
+    var pollsBox = $("mPolls");
+    pollsBox.innerHTML = "";
+    pollsBox.hidden = !s.polls;
+    if (s.polls) {
+      s.polls.forEach(function (pair) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "poll"; b.textContent = pair[0];
+        b.addEventListener("click", function () {
+          $("mFace").textContent = "🤨";
+          $("mTitle").textContent = pair[1];
+          $("mText").textContent = "Опрос пройден. Спасибо за обратную связь.";
+          pollsBox.hidden = true;
+          no.hidden = false;
+        });
+        pollsBox.appendChild(b);
+      });
+    }
+    if (step <= 1 || s.tiny) makeShy(no, 2, null);
+  }
+
+  $("btnNo").addEventListener("click", function () {
+    step = 0; renderStep(); modal.hidden = false;
+  });
+
+  $("mYes").addEventListener("click", function () {
+    modal.hidden = true;
+    $("btnNo").style.transform = "";
+    if (!btnYes.disabled) confirmDate();
+    else { fine.textContent = "отлично! теперь всё-таки выбери день и время ↑"; window.scrollTo({ top: 0, behavior: "smooth" }); }
+  });
+
+  $("mNo").addEventListener("click", function () {
+    if (step < STEPS.length - 1) { step++; renderStep(); return; }
+    // настоящий выход — по-доброму
+    $("mBar").style.width = "100%";
+    $("mStep").textContent = "хорошо";
+    $("mFace").textContent = "💛";
+    $("mTitle").textContent = "Ладно. Правда ладно.";
+    $("mText").textContent = "Никаких обид, я серьёзно. Просто выбери день, когда сможешь — я подожду сколько надо.";
+    $("mYes").textContent = "выбрать другой день";
+    $("mNo").hidden = true;
+    $("mPolls").hidden = true;
+    $("mYes").onclick = function () {
+      modal.hidden = true;
+      $("mYes").onclick = null;
+      $("btnNo").textContent = "не могу 🥺";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  });
+
+  /* ---------------- конфетти ---------------- */
+  var cv = $("fx"), ctx = cv.getContext("2d"), parts = [], raf = null;
+  function sizeCanvas() {
+    var r = window.devicePixelRatio || 1;
+    cv.width = innerWidth * r; cv.height = innerHeight * r;
+    cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px";
+    ctx.setTransform(r, 0, 0, r, 0, 0);
+  }
+  sizeCanvas();
+  addEventListener("resize", sizeCanvas);
+
+  function heart(x, y, s, rot, color) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
+    ctx.beginPath();
+    ctx.moveTo(0, 3);
+    ctx.bezierCurveTo(-5, -2, -5, -7, 0, -5);
+    ctx.bezierCurveTo(5, -7, 5, -2, 0, 3);
+    ctx.closePath();
+    ctx.fillStyle = color; ctx.fill(); ctx.restore();
+  }
+
+  function burst() {
+    if (reduced) return;
+    var colors = ["#ff85a9", "#b39ae4", "#ffcf8f", "#7fd8c0", "#ffffff"];
+    for (var i = 0; i < 130; i++) {
+      parts.push({
+        x: Math.random() * innerWidth,
+        y: -20 - Math.random() * innerHeight * 0.5,
+        vx: (Math.random() - .5) * 1.4,
+        vy: 1.6 + Math.random() * 2.8,
+        s: .8 + Math.random() * 1.7,
+        r: Math.random() * 6.28,
+        vr: (Math.random() - .5) * .16,
+        c: colors[i % colors.length],
+        life: 1
+      });
+    }
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    for (var i = parts.length - 1; i >= 0; i--) {
+      var p = parts[i];
+      p.x += p.vx; p.y += p.vy; p.r += p.vr; p.vy += .012;
+      if (p.y > innerHeight + 30) { parts.splice(i, 1); continue; }
+      ctx.globalAlpha = .9;
+      heart(p.x, p.y, p.s, p.r, p.c);
+    }
+    ctx.globalAlpha = 1;
+    if (parts.length) { raf = requestAnimationFrame(frame); }
+    else { raf = null; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+  }
+
+  /* ---------------- уведомление Владу ----------------
+     ntfy.sh — бесплатный пуш без аккаунтов и токенов.
+     Тема случайная, чтобы её никто не угадал.
+     Влад слушает её в приложении ntfy или на ntfy.sh/<тема>. */
+  var NTFY_TOPIC = "vy-svidanie-1532-8fq3zk";
+  var saving = false;
+
+  function notifyVlad(d) {
+    var msg =
+      d.day + " в " + d.time + "\n" +
+      "план: " + d.plan +
+      (d.note ? "\n\nзаписка: «" + d.note + "»" : "");
+    return fetch("https://ntfy.sh/", {
+      method: "POST",
+      body: JSON.stringify({
+        topic: NTFY_TOPIC,
+        title: "Яна согласилась ♡",
+        message: msg,
+        tags: ["heart"],
+        priority: 5
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return true;
+    });
+  }
+
+  /* ---------------- подтверждение ---------------- */
+  function confirmDate() {
+    if (saving) return;
+    saving = true;
+    var payload = {
+      status: "confirmed",
+      day: state.day,
+      time: state.time,
+      plan: state.plan || "решим на месте",
+      note: state.note || "",
+      at: new Date().toISOString()
+    };
+    showResult(payload);
+    notifyVlad(payload).then(function () {
+      markSynced(true);
+    }, function () {
+      markSynced(false);
+    });
+    saving = false;
+  }
+
+  btnYes.addEventListener("click", confirmDate);
+
+  var lastPayload = null;
+
+  function showResult(d) {
+    lastPayload = d;
+    $("picker").hidden = true;
+    $("result").hidden = false;
+    $("rSyncText").textContent = "сообщаю Владу…";
+    $("rRows").innerHTML =
+      '<div class="row"><span class="k">когда</span><span class="v">' + esc(d.day) + "</span></div>" +
+      '<div class="row"><span class="k">во сколько</span><span class="v">' + esc(d.time) + "</span></div>" +
+      '<div class="row"><span class="k">план</span><span class="v">' + esc(d.plan) + "</span></div>";
+    var nb = $("rNote");
+    if (d.note) { nb.hidden = false; nb.textContent = "«" + d.note + "»"; }
+    else { nb.hidden = true; }
+    burst();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function showPicker() {
+    $("result").hidden = true;
+    $("picker").hidden = false;
+  }
+
+  function markSynced(ok) {
+    var box = $("rSync"), txt = $("rSyncText");
+    if (ok) {
+      txt.textContent = "Владу прилетело уведомление";
+      box.style.opacity = "1";
+    } else {
+      txt.textContent = "уведомление не ушло — нажми «скопировать» и кинь ему";
+      box.style.background = "transparent";
+      box.style.color = "var(--ink-soft)";
+    }
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  $("rCopy").addEventListener("click", function () {
+    if (!lastPayload) return;
+    var t = "Встречаемся " + lastPayload.day + " в " + lastPayload.time +
+      ". План: " + lastPayload.plan + (lastPayload.note ? ". P.S. " + lastPayload.note : "") + " ♡";
+    var self = this;
+    navigator.clipboard.writeText(t).then(function () {
+      self.textContent = "скопировано ✓";
+      setTimeout(function () { self.textContent = "скопировать текст"; }, 1800);
+    }, function () {
+      self.textContent = "не вышло, выдели вручную";
+    });
+  });
+
+  $("rReset").addEventListener("click", function () {
+    showPicker();
+    var box = $("rSync");
+    box.style.background = ""; box.style.color = "";
+  });
+
+  refresh();
+})();
+</script>
+
+</body>
+</html>
